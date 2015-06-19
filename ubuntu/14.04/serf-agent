@@ -17,7 +17,7 @@ NAME="Serf Agent v0.6.4"
 
 SERF_BINARY=/usr/local/bin/serf
 SERF_ROLE=None
-SERF_NODE=ubuntu
+SERF_NODE=$(hostname)
 SERF_RPC_ADDRESS=127.0.0.1:7373
 SERF_BIND_ADDRESS=0.0.0.0:7946
 SERF_LOG_LEVEL=info
