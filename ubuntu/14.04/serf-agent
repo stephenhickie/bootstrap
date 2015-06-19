@@ -38,7 +38,7 @@ start() {
 	findPid
 	
 	if [ "" = "$FOUND_PID" ]; then
-      nohup $SERF_BINARY agent -role "$SERF_ROLE" -node $SERF_NODE -bind $SERF_BIND_ADDRESS -rpc-addr $SERF_RPC_ADDRESS -log-level $SERF_LOG_LEVEL $SERF_EVENT_HANDLERS &>> $SERF_AGENT_LOG &
+      nohup $SERF_BINARY agent -role "$SERF_ROLE" -node $SERF_NODE -bind $SERF_BIND_ADDRESS -rpc-addr $SERF_RPC_ADDRESS -log-level $SERF_LOG_LEVEL -discover $SERF_CLUSTER $SERF_EVENT_HANDLERS &>> $SERF_AGENT_LOG &
       
       if [ $? -ne 0 ]; then
         echo "Error starting $NAME"
@@ -46,18 +46,18 @@ start() {
       fi
       
       echo "$NAME successfully started"
-      
-      if [ ! -z "$SERF_JOIN_ADDRESSES" ]; then
-	    sleep $SLEEP_TIME
-	    $SERF_BINARY join $SERF_JOIN_ADDRESSES
-	      
-	    if [ $? -ne 0 ]; then
-	      echo "Error joing $NAME to cluster"
-	      exit 1
-	    fi
-	      
-	    echo "$NAME successfully joined existing cluster(s)"
-      fi
+
+#      if [ ! -z "$SERF_JOIN_ADDRESSES" ]; then
+#	    sleep $SLEEP_TIME
+#	    $SERF_BINARY join $SERF_JOIN_ADDRESSES
+#	      
+#	    if [ $? -ne 0 ]; then
+#	      echo "Error joing $NAME to cluster"
+#	      exit 1
+#	    fi
+#	      
+#	    echo "$NAME successfully joined existing cluster(s)"
+#      fi
       
     else
       echo "$NAME is already running"
