@@ -1,0 +1,5 @@
+logger "Running rc.local script"
+hn=$(ifconfig eth0 | grep "inet addr" | cut -d ":" -f 2  | cut -d ' ' -f 1 | md5sum | cut -c1-5)
+echo $hn > /etc/hostname
+hostname $hn
+/etc/init.d/serf-agent start
